@@ -44,3 +44,38 @@ const lines = puzzleInput.split("\n");
 
   console.timeEnd("part 1");
 })();
+
+// Part 2
+(() => {
+  console.log("=========");
+  console.time("part 2");
+
+  let totals = 0;
+
+  for (const line of lines) {
+    const [, stats] = line.replaceAll(";", ",").split(": ");
+
+    const colorCounts = stats.split(",").map((str) => str.trim());
+
+    const redCounts = colorCounts
+      .filter((str) => str.includes(" red"))
+      .map((str) => +str.replace(" red", ""));
+
+    const greenCounts = colorCounts
+      .filter((str) => str.includes(" green"))
+      .map((str) => +str.replace(" green", ""));
+
+    const blueCounts = colorCounts
+      .filter((str) => str.includes(" blue"))
+      .map((str) => +str.replace(" blue", ""));
+
+    totals +=
+      Math.max(...redCounts) *
+      Math.max(...greenCounts) *
+      Math.max(...blueCounts);
+  }
+
+  console.log("part 2 - totals:", totals);
+
+  console.timeEnd("part 2");
+})();
