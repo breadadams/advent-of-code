@@ -6,7 +6,7 @@
 
 |                    Day                    | Part 1 | Part 2 |
 | :---------------------------------------: | :----: | :----: |
-| [04](https://adventofcode.com/2023/day/4) |   ✅   |    -   |
+| [04](https://adventofcode.com/2023/day/4) |   ✅   |   ✅   |
 | [03](https://adventofcode.com/2023/day/3) |   ✅   |    -   |
 | [02](https://adventofcode.com/2023/day/2) |   ✅   |   ✅   |
 | [01](https://adventofcode.com/2023/day/1) |   ✅   |   ✅   |
