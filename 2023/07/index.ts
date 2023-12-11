@@ -94,10 +94,14 @@ const getHandScore = (hand: string) => {
   return HAND_STRENGTH.HIGH_CARD;
 };
 
-const compareHandsByCardStrength = (handA: string, handB: string) => {
+const compareHandsByCardStrength = (
+  handA: string,
+  handB: string,
+  strengthMap: Record<string, number>
+) => {
   for (let i = 0; i < handA.length; i++) {
-    const strengthA = CARD_STRENGTH[handA[i]];
-    const strengthB = CARD_STRENGTH[handB[i]];
+    const strengthA = strengthMap[handA[i]];
+    const strengthB = strengthMap[handB[i]];
 
     if (strengthA > strengthB) {
       return 1;
@@ -127,7 +131,7 @@ const compareHandsByCardStrength = (handA: string, handB: string) => {
       return scoreA - scoreB;
     }
 
-    return compareHandsByCardStrength(handA, handB);
+    return compareHandsByCardStrength(handA, handB, CARD_STRENGTH);
   });
 
   for (const [i, hand] of sortedHands.entries()) {
@@ -137,4 +141,72 @@ const compareHandsByCardStrength = (handA: string, handB: string) => {
   console.log("part 1 - totalWinnings", totalWinnings);
 
   console.timeEnd("part 1");
+})();
+
+const CARD_STRENGTH_PT_2 = {
+  A: 13,
+  K: 12,
+  Q: 11,
+  T: 10,
+  "9": 9,
+  "8": 8,
+  "7": 7,
+  "6": 6,
+  "5": 5,
+  "4": 4,
+  "3": 3,
+  "2": 2,
+  J: 1,
+};
+
+const replaceJokers = (hand: string) => {
+  if (!hand.includes("J") || hand === "JJJJJ") {
+    return hand;
+  }
+
+  const counts: Record<string, number> = {};
+
+  for (let i = 0; i < hand.length; i++) {
+    const letter = hand[i];
+
+    if (letter !== "J") {
+      counts[letter] = (counts[letter] ?? 0) + 1;
+    }
+  }
+
+  const largestCount = Object.entries(counts)
+    .sort((a, b) => {
+      return a[1] - b[1];
+    })
+    .reverse();
+
+  return hand.replaceAll("J", largestCount[0][0]);
+};
+
+// Part 2
+(() => {
+  console.log("=========");
+  console.time("part 2");
+
+  let totalWinnings = 0;
+  const sortedHands = [...hands];
+
+  sortedHands.sort((handA, handB) => {
+    const scoreA = getHandScore(replaceJokers(handA));
+    const scoreB = getHandScore(replaceJokers(handB));
+
+    if (scoreA !== scoreB) {
+      return scoreA - scoreB;
+    }
+
+    return compareHandsByCardStrength(handA, handB, CARD_STRENGTH_PT_2);
+  });
+
+  for (const [i, hand] of sortedHands.entries()) {
+    totalWinnings += (i + 1) * bidMap.get(hand);
+  }
+
+  console.log("part 2 - totalWinnings", totalWinnings);
+
+  console.timeEnd("part 2");
 })();
