@@ -4,17 +4,18 @@
 
 ## 2023
 
-|                    Day                    | Part 1 | Part 2 |
-| :---------------------------------------: | :----: | :----: |
-| [09](https://adventofcode.com/2023/day/9) |   ✅   |   ✅   |
-| [08](https://adventofcode.com/2023/day/8) |   ✅   |   ✅   |
-| [07](https://adventofcode.com/2023/day/7) |   ✅   |   ✅   |
-| [06](https://adventofcode.com/2023/day/6) |   ✅   |   ✅   |
-| [05](https://adventofcode.com/2023/day/5) |   ✅   |    -   |
-| [04](https://adventofcode.com/2023/day/4) |   ✅   |   ✅   |
-| [03](https://adventofcode.com/2023/day/3) |   ✅   |    -   |
-| [02](https://adventofcode.com/2023/day/2) |   ✅   |   ✅   |
-| [01](https://adventofcode.com/2023/day/1) |   ✅   |   ✅   |
+|                    Day                     | Part 1 | Part 2 |
+| :----------------------------------------: | :----: | :----: |
+| [10](https://adventofcode.com/2023/day/10) |   ✅   |   -    |
+| [09](https://adventofcode.com/2023/day/9)  |   ✅   |   ✅   |
+| [08](https://adventofcode.com/2023/day/8)  |   ✅   |   ✅   |
+| [07](https://adventofcode.com/2023/day/7)  |   ✅   |   ✅   |
+| [06](https://adventofcode.com/2023/day/6)  |   ✅   |   ✅   |
+| [05](https://adventofcode.com/2023/day/5)  |   ✅   |    -   |
+| [04](https://adventofcode.com/2023/day/4)  |   ✅   |   ✅   |
+| [03](https://adventofcode.com/2023/day/3)  |   ✅   |    -   |
+| [02](https://adventofcode.com/2023/day/2)  |   ✅   |   ✅   |
+| [01](https://adventofcode.com/2023/day/1)  |   ✅   |   ✅   |
 
 ## 2022
 
