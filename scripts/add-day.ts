@@ -6,6 +6,26 @@ const root = path.join(__dirname, "..");
 const today = new Date();
 const padDay = (day: string | number) => `${day}`.padStart(2, "0");
 
+const tsFileContents = `
+import { getPuzzle } from "../../utils";
+
+const puzzleInput = getPuzzle(__dirname).trim();
+
+// Part 1
+(() => {
+  console.time("part 1");
+
+  console.timeEnd("part 1");
+})();
+
+// Part 2
+(() => {
+  console.time("part 2");
+
+  console.timeEnd("part 2");
+})();
+`.trim();
+
 inquirer
   .prompt([
     { name: "year", default: `${today.getFullYear()}` },
@@ -22,7 +42,7 @@ inquirer
       const dayPath = path.join(yearPath, padDay(answers.day));
       fs.mkdirSync(dayPath);
 
-      fs.writeFileSync(path.join(dayPath, "index.ts"), "");
+      fs.writeFileSync(path.join(dayPath, "index.ts"), tsFileContents);
       fs.writeFileSync(path.join(dayPath, "puzzle.txt"), "");
     });
   });
