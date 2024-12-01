@@ -2,6 +2,12 @@
 
 > My solutions to [AoC](https://adventofcode.com/), written in TypeScript.
 
+## 2024
+
+|                    Day                    | Part 1 | Part 2 |
+| :---------------------------------------: | :----: | :----: |
+| [01](https://adventofcode.com/2024/day/1) |   ✅   |   ✅   |
+
 ## 2023
 
 |                    Day                     | Part 1 | Part 2 |
