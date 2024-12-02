@@ -9,7 +9,6 @@ const reports = lines.map((line) =>
 const isReportSafe = (report: number[]) => {
   let isSafe = true;
   let isIncreasing = false;
-  let unsafeIndex = -1;
 
   for (let i = 1; i < report.length; i++) {
     const entry = report[i];
@@ -17,7 +16,6 @@ const isReportSafe = (report: number[]) => {
 
     if (entry === prevEntry) {
       isSafe = false;
-      unsafeIndex = i;
       break;
     }
 
@@ -26,18 +24,15 @@ const isReportSafe = (report: number[]) => {
     } else {
       if (isIncreasing && entry < prevEntry) {
         isSafe = false;
-        unsafeIndex = i;
         break;
       } else if (!isIncreasing && entry > prevEntry) {
         isSafe = false;
-        unsafeIndex = i;
         break;
       }
     }
 
     if (Math.abs(entry - prevEntry) > 3) {
       isSafe = false;
-      unsafeIndex = i;
       break;
     }
   }
