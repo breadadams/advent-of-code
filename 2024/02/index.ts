@@ -21,14 +21,12 @@ const isReportSafe = (report: number[]) => {
 
     if (i === 1) {
       isIncreasing = entry > prevEntry;
-    } else {
-      if (isIncreasing && entry < prevEntry) {
-        isSafe = false;
-        break;
-      } else if (!isIncreasing && entry > prevEntry) {
-        isSafe = false;
-        break;
-      }
+    } else if (
+      (isIncreasing && entry < prevEntry) ||
+      (!isIncreasing && entry > prevEntry)
+    ) {
+      isSafe = false;
+      break;
     }
 
     if (Math.abs(entry - prevEntry) > 3) {
