@@ -28,11 +28,15 @@ type GuardPosition = {
 const startY = map.findIndex((row) => row.includes(GUARD_STARTING_CHAR));
 const startX = map[startY].indexOf(GUARD_STARTING_CHAR);
 
-const getVisitedCells = (
-  mapInput: typeof map,
-  keyFormatter: (guardPos: GuardPosition) => string = ({ x, y }) => `${x},${y}`,
-  enableLoopDetection = false
-) => {
+const getVisitedCells = ({
+  enableLoopDetection,
+  keyFormatter = ({ x, y }) => `${x},${y}`,
+  mapInput,
+}: {
+  enableLoopDetection?: boolean;
+  keyFormatter?: (guardPos: GuardPosition) => string;
+  mapInput: typeof map;
+}) => {
   let guardPosition: GuardPosition = { x: startX, y: startY, direction: "UP" };
   let loopDetected = false;
 
@@ -42,8 +46,8 @@ const getVisitedCells = (
   while (true) {
     const nextMove = DIRECTIONS[guardPosition.direction];
     const nextPosition = {
-      x: Math.abs(guardPosition.x + nextMove.x),
-      y: Math.abs(guardPosition.y + nextMove.y),
+      x: guardPosition.x + nextMove.x,
+      y: guardPosition.y + nextMove.y,
     };
 
     if (
@@ -87,8 +91,41 @@ const getVisitedCells = (
 (() => {
   console.time("part 1");
 
-  const { visitedCells } = getVisitedCells(map);
+  const { visitedCells } = getVisitedCells({ mapInput: map });
 
   console.log("part 1 visitedCells count ::", visitedCells.size);
   console.timeEnd("part 1");
+})();
+
+// Part 2
+(() => {
+  console.time("part 2");
+
+  const { visitedCells } = getVisitedCells({ mapInput: map });
+  let loopsFound = 0;
+
+  for (let visitedCell of visitedCells) {
+    const [x, y] = visitedCell.split(",").map((n) => parseInt(n));
+
+    if (x === startX && y === startY) {
+      continue;
+    }
+
+    const mapClone = JSON.parse(JSON.stringify(map)) as typeof map;
+    mapClone[y][x] = OBSTACLE_CHAR;
+
+    const { loopDetected } = getVisitedCells({
+      enableLoopDetection: true,
+      keyFormatter: (guardPos) =>
+        `${guardPos.x},${guardPos.y},${guardPos.direction}`,
+      mapInput: mapClone,
+    });
+
+    if (loopDetected) {
+      loopsFound += 1;
+    }
+  }
+
+  console.log("part 2 loopsFound ::", loopsFound);
+  console.timeEnd("part 2");
 })();
