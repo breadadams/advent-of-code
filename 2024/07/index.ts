@@ -1,22 +1,24 @@
-import { getPuzzle } from "../../utils";
+import { timePart1, timePart2 } from "../../utils/time-part";
 
-const puzzleInput = getPuzzle(__dirname).trim();
+const parseInput = (input: string) => {
+  return input.split("\n").map((row) => {
+    const [testValue, numbers] = row.split(": ");
 
-const equations = puzzleInput.split("\n").map((row) => {
-  const [testValue, numbers] = row.split(": ");
+    return {
+      testValue: parseInt(testValue),
+      numbers: numbers.split(" ").map((n) => parseInt(n)),
+    };
+  });
+};
 
-  return {
-    testValue: parseInt(testValue),
-    numbers: numbers.split(" ").map((n) => parseInt(n)),
-  };
-});
-
-// Part 1
-(() => {
-  console.time("part 1");
+export const part1 = timePart1((input: string) => {
   let total = 0;
+  const equations = parseInput(input);
 
-  const compare = ({ numbers, testValue }: (typeof equations)[number]) => {
+  const compare = ({
+    numbers,
+    testValue,
+  }: (typeof equations)[number]): boolean => {
     if (numbers.length === 1) {
       return testValue === numbers[0];
     }
@@ -48,16 +50,17 @@ const equations = puzzleInput.split("\n").map((row) => {
     }
   }
 
-  console.log("part 1 total ::", total);
-  console.timeEnd("part 1");
-})();
+  return total;
+});
 
-// Part 2
-(() => {
-  console.time("part 2");
+export const part2 = timePart2((input: string) => {
   let total = 0;
+  const equations = parseInput(input);
 
-  const compare = ({ numbers, testValue }: (typeof equations)[number]) => {
+  const compare = ({
+    numbers,
+    testValue,
+  }: (typeof equations)[number]): boolean => {
     if (numbers.length === 1) {
       return testValue === numbers[0];
     }
@@ -89,6 +92,5 @@ const equations = puzzleInput.split("\n").map((row) => {
     }
   }
 
-  console.log("part 2 total ::", total);
-  console.timeEnd("part 2");
-})();
+  return total;
+});

@@ -3,17 +3,15 @@
   "version": "1.0.0",
   "description": "Advent of Code Solutions",
   "author": "Brad Adams <hi@breadadams.com>",
+  "private": "true",
   "scripts": {
-    "add-day": "ts-node ./scripts/add-day.ts",
-    "watch-day": "ts-node ./scripts/watch-day.ts"
+    "add-day": "bun ./scripts/add-day.ts",
+    "watch-day": "bun ./scripts/watch-day.ts"
   },
-  "dependencies": {
+  "devDependencies": {
     "@types/inquirer": "^9.0.3",
-    "@types/node": "^18.11.10",
-    "@types/nodemon": "^1.19.2",
     "inquirer": "^8.0.0",
-    "nodemon": "^2.0.20",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.9.3"
+    "typescript": "^4.9.3",
+    "@types/bun": "^1.1.14"
   }
 }
