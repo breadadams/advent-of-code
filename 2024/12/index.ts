@@ -16,6 +16,13 @@ const directions = {
   LEFT: { x: -1, y: 0 },
 } satisfies Record<string, Coordinate>;
 
+const diagonalDirections = {
+  RIGHT_UP: { x: 1, y: -1 },
+  RIGHT_DOWN: { x: 1, y: 1 },
+  LEFT_DOWN: { x: -1, y: 1 },
+  LEFT_UP: { x: -1, y: -1 },
+} satisfies Record<string, Coordinate>;
+
 const getCellKey = (cell: Coordinate) => `${cell.x},${cell.y}`;
 
 const getCellFromKey = (key: string) => {
@@ -124,7 +131,106 @@ const getRegions = () => {
 })();
 
 // Part 2
-// (() => {
-//   console.time("part 2");
-//   console.timeEnd("part 2");
-// })();
+(() => {
+  console.time("part 2");
+  const regions = getRegions();
+  let totalPrice = 0;
+
+  for (const [, region] of regions) {
+    let corners = 0;
+
+    if (region.cells.size === 1) {
+      totalPrice += 4;
+      continue;
+    }
+
+    for (const cellKey of region.cells) {
+      const cell = getCellFromKey(cellKey);
+
+      /* **************
+       * OUTER CORNERS
+       * **************/
+
+      const upCellKey = getCellKey(move(cell, directions.UP));
+      const rightCellKey = getCellKey(move(cell, directions.RIGHT));
+      const downCellKey = getCellKey(move(cell, directions.DOWN));
+      const leftCellKey = getCellKey(move(cell, directions.LEFT));
+
+      // Outer top-left corner
+      if (!region.cells.has(leftCellKey) && !region.cells.has(upCellKey)) {
+        corners++;
+      }
+
+      // Outer top-right corner
+      if (!region.cells.has(upCellKey) && !region.cells.has(rightCellKey)) {
+        corners++;
+      }
+
+      // Outer bottom-right corner
+      if (!region.cells.has(rightCellKey) && !region.cells.has(downCellKey)) {
+        corners++;
+      }
+
+      // Outer bottom-left corner
+      if (!region.cells.has(downCellKey) && !region.cells.has(leftCellKey)) {
+        corners++;
+      }
+
+      /* **************
+       * INNER CORNERS
+       * **************/
+
+      const rightUpCellKey = getCellKey(
+        move(cell, diagonalDirections.RIGHT_UP)
+      );
+      const rightDownCellKey = getCellKey(
+        move(cell, diagonalDirections.RIGHT_DOWN)
+      );
+      const leftDownCellKey = getCellKey(
+        move(cell, diagonalDirections.LEFT_DOWN)
+      );
+      const leftUpCellKey = getCellKey(move(cell, diagonalDirections.LEFT_UP));
+
+      // Inner top-left corner
+      if (
+        region.cells.has(rightCellKey) &&
+        region.cells.has(downCellKey) &&
+        !region.cells.has(rightDownCellKey)
+      ) {
+        corners++;
+      }
+
+      // Inner top-right corner
+      if (
+        region.cells.has(leftCellKey) &&
+        region.cells.has(downCellKey) &&
+        !region.cells.has(leftDownCellKey)
+      ) {
+        corners++;
+      }
+
+      // Inner bottom-right corner
+      if (
+        region.cells.has(leftCellKey) &&
+        region.cells.has(upCellKey) &&
+        !region.cells.has(leftUpCellKey)
+      ) {
+        corners++;
+      }
+
+      // Inner bottom-left corner
+      if (
+        region.cells.has(rightCellKey) &&
+        region.cells.has(upCellKey) &&
+        !region.cells.has(rightUpCellKey)
+      ) {
+        corners++;
+      }
+    }
+
+    totalPrice += region.cells.size * corners;
+  }
+
+  console.log("part 2 totalPrice ::", totalPrice);
+  console.timeEnd("part 2");
+})();
