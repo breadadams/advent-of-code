@@ -1,11 +1,10 @@
-import { getPuzzle } from "../../utils";
+import { timePart1, timePart2 } from "../../utils/time-part";
 
-const puzzleInput = getPuzzle(__dirname).trim();
-const diskMap = puzzleInput.split("");
+const parseInput = (input: string) => input.split("");
 
 // Part 1
-(() => {
-  console.time("part 1");
+export const part1 = timePart1((input: string) => {
+  const diskMap = parseInput(input);
   let representation = "";
 
   for (let i = 0; i < diskMap.length; i++) {
@@ -26,7 +25,7 @@ const diskMap = puzzleInput.split("");
   let lastFileBlockIndex = representationArr.findLastIndex((e) => e !== ".");
 
   while (lastFileBlockIndex > firstFreeSpaceBlockIndex) {
-    const lastEntry = representationArr.pop();
+    const lastEntry = representationArr.pop()!;
 
     if (lastEntry !== ".") {
       representationArr[firstFreeSpaceBlockIndex] = lastEntry;
@@ -50,13 +49,11 @@ const diskMap = puzzleInput.split("");
     }
   }
 
-  console.log("part 1 checksum ::", checksum);
-  console.timeEnd("part 1");
-})();
+  return checksum;
+});
 
-// Part 2
-(() => {
-  console.time("part 2");
+export const part2 = timePart2((input: string) => {
+  const diskMap = parseInput(input);
   let representation = "";
 
   for (let i = 0; i < diskMap.length; i++) {
@@ -145,6 +142,5 @@ const diskMap = puzzleInput.split("");
     }
   }
 
-  console.log("part 2 checksum ::", checksum);
-  console.timeEnd("part 2");
-})();
+  return checksum;
+});
