@@ -1,16 +1,18 @@
-import { getPuzzle } from "../../utils";
+import { timePart1, timePart2 } from "../../utils/time-part";
 
-const puzzleInput = getPuzzle(__dirname).trim();
+const parseInput = (input: string) =>
+  input.split("\n").map((row) => row.split(""));
 
-const map = puzzleInput.split("\n").map((row) => row.split(""));
+const measureMap = (map: ReturnType<typeof parseInput>) => {
+  const WIDTH = map[0].length;
+  const HEIGHT = map.length;
 
-const WIDTH = map[0].length;
-const HEIGHT = map.length;
+  return { WIDTH, HEIGHT };
+};
 
-// Part 1
-(() => {
-  console.time("part 1");
-
+export const part1 = timePart1((input: string) => {
+  const map = parseInput(input);
+  const { HEIGHT, WIDTH } = measureMap(map);
   const antennas = new Map<string, Set<string>>();
 
   for (let y = 0; y < HEIGHT; y++) {
@@ -22,7 +24,7 @@ const HEIGHT = map.length;
       }
 
       if (antennas.has(cell)) {
-        antennas.get(cell).add(`${x},${y}`);
+        antennas.get(cell)!.add(`${x},${y}`);
       } else {
         antennas.set(cell, new Set<string>([`${x},${y}`]));
       }
@@ -83,13 +85,12 @@ const HEIGHT = map.length;
     }
   }
 
-  console.log("part 1 antinode count ::", antinodes.size);
-  console.timeEnd("part 1");
-})();
+  return antinodes.size;
+});
 
-// Part 2
-(() => {
-  console.time("part 2");
+export const part2 = timePart2((input: string) => {
+  const map = parseInput(input);
+  const { HEIGHT, WIDTH } = measureMap(map);
   const antennas = new Map<string, Set<string>>();
 
   for (let y = 0; y < HEIGHT; y++) {
@@ -101,7 +102,7 @@ const HEIGHT = map.length;
       }
 
       if (antennas.has(cell)) {
-        antennas.get(cell).add(`${x},${y}`);
+        antennas.get(cell)!.add(`${x},${y}`);
       } else {
         antennas.set(cell, new Set<string>([`${x},${y}`]));
       }
@@ -198,6 +199,5 @@ const HEIGHT = map.length;
     }
   }
 
-  console.log("part 2 antinode count ::", antinodes.size);
-  console.timeEnd("part 2");
-})();
+  return antinodes.size;
+});
